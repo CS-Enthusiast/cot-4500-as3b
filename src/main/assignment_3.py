@@ -1,6 +1,14 @@
 # src/main/assignment_3.py
 import numpy as np
 
+def is_diagonally_dominant(matrix):
+    for i in range(len(matrix)):
+        row_sum = sum(abs(matrix[i][j]) for j in range(len(matrix)) if i != j)
+        if abs(matrix[i][i]) < row_sum:
+            return False
+    return True
+
+
 def lu_decomposition(matrix):
     n = len(matrix)
     L = np.identity(n)
@@ -68,6 +76,17 @@ def main():
     print(L.tolist())
     print()
     print(U.tolist())
+    print()
+
+    # Problem 3: Diagonal Dominance
+    diag_matrix = [
+        [9, 0, 5, 2, 1],
+        [3, 9, 1, 2, 1],
+        [0, 1, 7, 2, 3],
+        [4, 2, 3, 12, 2],
+        [3, 2, 4, 0, 8]
+    ]
+    print(is_diagonally_dominant(diag_matrix))
     print()
 
 if __name__ == "__main__":
