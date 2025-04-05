@@ -1,4 +1,18 @@
 # src/main/assignment_3.py
+import numpy as np
+
+def lu_decomposition(matrix):
+    n = len(matrix)
+    L = np.identity(n)
+    U = np.array(matrix, dtype=float)
+
+    for i in range(n):
+        for j in range(i + 1, n):
+            factor = U[j][i] / U[i][i]
+            L[j][i] = factor
+            U[j] -= factor * U[i]
+
+    return L, U
 
 def gaussian_elimination(matrix):
     n = len(matrix)
@@ -38,6 +52,23 @@ def main():
     print()
     print(result)
     print()
-    
+
+    # Problem 2: LU Factorization
+    A = [
+        [1, 1, 0, 3],
+        [2, 1, -1, 1],
+        [3, -1, -1, 2],
+        [-1, 2, 3, -1]
+    ]
+    L, U = lu_decomposition(A)
+    determinant = np.prod(np.diag(U))
+
+    print(determinant)
+    print()
+    print(L.tolist())
+    print()
+    print(U.tolist())
+    print()
+
 if __name__ == "__main__":
     main()
