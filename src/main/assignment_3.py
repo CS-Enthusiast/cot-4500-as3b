@@ -1,13 +1,20 @@
 # src/main/assignment_3.py
 import numpy as np
 
+def is_positive_definite(matrix):
+    A = np.array(matrix)
+    try:
+        np.linalg.cholesky(A)
+        return True
+    except np.linalg.LinAlgError:
+        return False
+
 def is_diagonally_dominant(matrix):
     for i in range(len(matrix)):
         row_sum = sum(abs(matrix[i][j]) for j in range(len(matrix)) if i != j)
         if abs(matrix[i][i]) < row_sum:
             return False
     return True
-
 
 def lu_decomposition(matrix):
     n = len(matrix)
@@ -88,6 +95,14 @@ def main():
     ]
     print(is_diagonally_dominant(diag_matrix))
     print()
+
+    # Problem 4: Positive Definite
+    pos_def_matrix = [
+        [2, 2, 1],
+        [2, 3, 0],
+        [1, 0, 2]
+    ]
+    print(is_positive_definite(pos_def_matrix))
 
 if __name__ == "__main__":
     main()
